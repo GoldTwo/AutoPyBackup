@@ -3,11 +3,6 @@ from tkinter import *
 from tkinter.filedialog import askopenfilename
 from pathlib import Path
 
-
-def auth():
-    gauth = GoogleAuth()
-    gauth.LocalWebserverAuth()
-
 # def upload(filename):
 #     # gdrive upload filename
 
@@ -24,8 +19,13 @@ def openfile():
     window.destroy()
     return window.fileName
 
+# ======================================
+#         Settings File Load
+# ======================================
+
 settingspath = Path("settings.cfg")
 
+# Detects if the settings file is existent and if not it then creates a new fresh one
 if not settingspath.exists():
     print("Creating new settings file")
     settingsfile = open("settings.cfg", "w")
@@ -39,17 +39,36 @@ settingsfile = open("settings.cfg", "r")
 settingunparsed = str(settingsfile.read())
 settinglineparse = settingunparsed.split("\n")
 
+# Kills the lines with comments on them
+# This took too long to figure out how to do do
 for x in range(len(settinglineparse)):
     if settinglineparse[x - x][:2] == "# ":
         del settinglineparse[x - x]
 
+# Assigns the final settings to variables
 issetup = settinglineparse[0].split(" = ", 1)[1].lower()
 defaultfile = settinglineparse[1].split(" = ", 1)[1]   
 
-if bool(issetup) == True:
-    auth()
-    
+# ======================================
+#             Main Base
+# ======================================
 
+# Check for Auth file then
+gauth = GoogleAuth()
+# gauth.LoadCredentialsFile("gauth.auth")
+#
+# if gauth.credentials is None:
+#     gauth.LocalWebserverAuth()
+# elif gauth.access_token_expired:
+#     gauth.Refresh()
+# else:
+#     gauth.Authorize()
+#
+# gauth.SaveCredentialsFile("gauth.auth")
+gauth.LocalWebserverAuth()
+
+if bool(issetup) == True:
+    print("setup = True")
 
 # if file exists:
 #     read file name
