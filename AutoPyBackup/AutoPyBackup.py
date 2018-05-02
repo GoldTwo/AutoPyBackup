@@ -53,22 +53,13 @@ defaultfile = settinglineparse[1].split(" = ", 1)[1]
 #             Main Base
 # ======================================
 
-# Check for Auth file then
+# Custom auth flow to auth
 gauth = GoogleAuth()
-# gauth.LoadCredentialsFile("gauth.auth")
-#
-# if gauth.credentials is None:
-#     gauth.LocalWebserverAuth()
-# elif gauth.access_token_expired:
-#     gauth.Refresh()
-# else:
-#     gauth.Authorize()
-#
-# gauth.SaveCredentialsFile("gauth.auth")
 gauth.LocalWebserverAuth()
 
 if bool(issetup) == True:
     print("setup = True")
+
 
 # if file exists:
 #     read file name
@@ -77,8 +68,6 @@ if bool(issetup) == True:
 #     openfile()
 
 # print(openfile())
-
-
 
 print(issetup)
 print(defaultfile)
